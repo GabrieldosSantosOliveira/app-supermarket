@@ -10,9 +10,7 @@ interface IAuthContext {
   user: IUser | null;
   isUserLoading: boolean;
 }
-export const AuthContext = createContext(
-  {} as IAuthContext
-);
+export const AuthContext = createContext({} as IAuthContext);
 interface IAuthProvider {
   children: React.ReactNode;
 }
@@ -26,21 +24,16 @@ interface IUser {
   picture: string;
   verified_email: boolean;
 }
-export const AuthProvider = ({
-  children
-}: IAuthProvider) => {
+export const AuthProvider = ({ children }: IAuthProvider) => {
   const [user, setUser] = useState<IUser | null>(null);
-  const [isUserLoading, setIsUserLoading] =
-    useState<boolean>(false);
-  const [request, response, promptAsync] =
-    Google.useAuthRequest({
-      clientId:
-        '912913284963-jef8uel0rppkkpsc45t456pq2dr7ovml.apps.googleusercontent.com',
-      redirectUri: AuthSession.makeRedirectUri({
-        useProxy: true
-      }),
-      scopes: ['profile', 'email']
-    });
+  const [isUserLoading, setIsUserLoading] = useState<boolean>(false);
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    clientId: process.env.CLIENT_ID,
+    redirectUri: AuthSession.makeRedirectUri({
+      useProxy: true,
+    }),
+    scopes: ['profile', 'email'],
+  });
   const singInWithGoogle = async () => {
     try {
       setIsUserLoading(true);
@@ -59,9 +52,9 @@ export const AuthProvider = ({
           'https://www.googleapis.com/oauth2/v2/userinfo',
           {
             headers: {
-              Authorization: `Bearer ${access_token}`
-            }
-          }
+              Authorization: `Bearer ${access_token}`,
+            },
+          },
         );
         setUser(data);
       } catch (error) {
@@ -70,10 +63,7 @@ export const AuthProvider = ({
         setIsUserLoading(false);
       }
     };
-    if (
-      response?.type === 'success' &&
-      response.authentication?.accessToken
-    ) {
+    if (response?.type === 'success' && response.authentication?.accessToken) {
       const { access_token } = response.params;
       fetchUser(access_token);
     }
@@ -83,7 +73,7 @@ export const AuthProvider = ({
       value={{
         singInWithGoogle,
         isUserLoading,
-        user
+        user,
       }}
     >
       {children}

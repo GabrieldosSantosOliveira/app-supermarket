@@ -3,12 +3,8 @@ export const RegisterContext = createContext({});
 interface IRegisterProvider {
   children: ReactNode;
 }
-export const RegisterProvider: FC<IRegisterProvider> = ({
-  children
-}) => {
+export const RegisterProvider: FC<IRegisterProvider> = ({ children }) => {
   return (
-    <RegisterContext.Provider value={{}}>
-      {children}
-    </RegisterContext.Provider>
+    <RegisterContext.Provider value={{}}>{children}</RegisterContext.Provider>
   );
 };
