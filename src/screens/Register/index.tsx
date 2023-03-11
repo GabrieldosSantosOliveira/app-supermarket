@@ -1,4 +1,5 @@
-import { VStack } from 'native-base';
+import { View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Header } from '../../components/Header/Register';
 import { useRegister } from '../../hooks/useRegister';
@@ -7,20 +8,25 @@ import { RegisterProvider } from './../../context/RegisterContext';
 import { Email } from './Email';
 export const Register = () => {
   const value = useRegister();
-  console.log('VALUES', value);
   const { colorMode } = useTheme();
+  const insets = useSafeAreaInsets();
   return (
     <RegisterProvider>
-      <VStack
-        safeArea
-        flex={1}
-        justifyContent="center"
-        alignItems="center"
-        bg={colorMode === 'dark' ? 'gray.900' : 'white'}
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+          backgroundColor: colorMode === 'dark' ? '#040f13' : 'white',
+        }}
       >
         <Header />
         <Email />
-      </VStack>
+      </View>
     </RegisterProvider>
   );
 };

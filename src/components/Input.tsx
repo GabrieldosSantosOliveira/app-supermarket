@@ -1,20 +1,15 @@
-import { Input as NativeBaseInput, IInputProps } from 'native-base';
+import { TextInput, TextInputProps } from 'react-native';
 
 import { useTheme } from '../hooks/useTheme';
-export const Input = ({ ...props }: IInputProps) => {
+export const Input = ({ ...props }: TextInputProps) => {
   const { colorMode } = useTheme();
   return (
-    <NativeBaseInput
-      h={14}
-      fontSize="md"
-      borderWidth={0}
-      bg={colorMode === 'dark' ? 'muted.800' : 'trasparent'}
-      color={colorMode === 'dark' ? 'text.600' : 'gray.100'}
-      _focus={{
-        color: colorMode === 'dark' ? 'white' : 'gray.100',
-        bg: colorMode === 'dark' ? 'muted.600' : 'trasparent',
-        borderWidth: 1,
-        borderColor: colorMode === 'dark' ? 'blue.300' : 'gray.100',
+    <TextInput
+      style={{
+        height: 56,
+        fontSize: 14,
+        backgroundColor: colorMode === 'dark' ? '#262626' : 'trasparent',
+        color: colorMode === 'dark' ? 'black' : '#f4f4f5',
       }}
       {...props}
     />

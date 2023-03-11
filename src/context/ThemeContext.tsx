@@ -1,17 +1,18 @@
-import { IColorModeContextProps, useColorMode } from 'native-base';
-import { createContext, FC, ReactNode, useEffect } from 'react';
+import { createContext, FC, ReactNode, useEffect, useState } from 'react';
 import { useColorScheme } from 'react-native';
 
 import { setStorage } from '../services/setStorage';
 import { getStorage } from './../services/getStorage';
-type IThemeContext = IColorModeContextProps;
+type IThemeContext = {
+  colorMode: 'dark' | 'light';
+};
 export const ThemeContext = createContext({} as IThemeContext);
 interface IThemeProviderProps {
   children: ReactNode;
 }
 export const ThemeProvider: FC<IThemeProviderProps> = ({ children }) => {
   const colorScheme = useColorScheme();
-  const { setColorMode, ...rest } = useColorMode();
+  const [colorMode, setColorMode] = useState<'dark' | 'light'>('dark');
   useEffect(() => {
     async function getInterfaceColor() {
       let colorSave = await getStorage<'dark' | 'light' | 'automatic'>(
@@ -40,7 +41,7 @@ export const ThemeProvider: FC<IThemeProviderProps> = ({ children }) => {
   }, [colorScheme]);
 
   return (
-    <ThemeContext.Provider value={{ setColorMode, ...rest }}>
+    <ThemeContext.Provider value={{ colorMode }}>
       {children}
     </ThemeContext.Provider>
   );

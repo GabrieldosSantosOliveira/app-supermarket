@@ -1,12 +1,12 @@
-import { Text, VStack } from 'native-base';
+import { View } from 'react-native';
+import { Text } from 'react-native';
 
-import { StatusBar } from '../components/StatusBar';
 export const Help = () => {
   return (
-    <VStack pt={10} flex={1} bg="amber.100">
-      <Text fontSize="2xl" mt="10" color="amber.800">
+    <View style={{ paddingTop: 40, flex: 1, backgroundColor: '#fef3c7' }}>
+      <Text style={{ fontSize: 20, marginTop: 40, color: '#92400e' }}>
         hhhdddddddd
       </Text>
-    </VStack>
+    </View>
   );
 };

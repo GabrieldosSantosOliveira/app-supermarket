@@ -1,26 +1,22 @@
-import {
-  Button as NativeBaseButton,
-  IButtonProps
-} from 'native-base';
 import React from 'react';
-interface IButton extends IButtonProps {
+import { Pressable, View, PixelRatio, ViewProps } from 'react-native';
+interface IButton extends ViewProps {
   children: React.ReactNode;
 }
-export const ButtonPrimary = ({
-  children,
-  ...props
-}: IButton) => {
+export const ButtonPrimary = ({ children, ...props }: IButton) => {
   return (
-    <NativeBaseButton
-      w="full"
-      h={14}
-      fontSize="md"
-      bg="blue.500"
-      _pressed={{ bg: 'blue.400' }}
-      rounded="md"
-      {...props}
-    >
-      {children}
-    </NativeBaseButton>
+    <Pressable>
+      <View
+        style={{
+          borderRadius: 8,
+          width: '100%',
+          height: PixelRatio.getPixelSizeForLayoutSize(56),
+          backgroundColor: '#3b82f6',
+        }}
+        {...props}
+      >
+        {children}
+      </View>
+    </Pressable>
   );
 };
